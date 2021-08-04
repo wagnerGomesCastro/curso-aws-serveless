@@ -58,14 +58,13 @@ class Handler {
   }
   async main(event) {
     try {
-      // const { imageUrl } = event.queryStringParameters
+      const { imageUrl } = event.queryStringParameters
+      // const imgBuffer = await readFile('./images/cat.jpeg')
 
-      const imgBuffer = await readFile('./images/cat.jpeg')
       console.log('downloading image...')
-      // const buffer = await this.getImageBuffer(imageUrl)
-      //
+      const buffer = await this.getImageBuffer(imageUrl)
       console.log('Detecting labels...')
-      const {names, workingItems} = await this.detectImageLabels(imgBuffer)
+      const {names, workingItems} = await this.detectImageLabels(buffer)
 
       console.log('Translating to Portuguese...')
       const texts = await this.translateText(names)
@@ -73,6 +72,7 @@ class Handler {
       console.log('handling final object...')
       const finalText = this.formatTextResults(texts, workingItems)
       console.log('finishing...')
+
       return {
         statusCode: 200,
         body: `A imagem tem\n `.concat(finalText)
