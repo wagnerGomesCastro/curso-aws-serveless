@@ -1,6 +1,7 @@
 const uuid = require('uuid')
 const Joi = require('@hapi/joi')
 const decoratorValidator = require('./util/decoratorValidator')
+const globalEnum = require('./util/globalEnum')
 
 class Handler {
   constructor({
@@ -49,27 +50,14 @@ class Handler {
   }
   async main(event) {
     try {
+      // agora o decorator modifica o body e jรก
       // retorna no formato JSON
-      const data = JSON.parse(event.body)
-      const {
-        error,
-        value
-      } = await Handler.validator().validate(data)
+      const data = event.body
 
-      console.log({
-        error,
-        value
-      })
+      const dbParams = this.prepareData(data)
+      await this.insertItem(dbParams)
+      return this.handlerSuccess(dbParams.Item)
 
-      return {
-        statusCode: 200
-      }
-
-
-
-      // const dbParams = this.prepareData(data)
-      // await this.insertItem(dbParams)
-      // return this.handlerSuccess(dbParams.Item)
     } catch (error) {
       console.error('Deu ruim**', error.stack)
       return this.handleError({
@@ -87,6 +75,6 @@ const handler = new Handler({
 
 module.exports = decoratorValidator(
   handler.main.bind(handler),
-  Handler.validator,
-  'body'
+  Handler.validator(),
+  globalEnum.ARG_TYPE.BODY
 )
