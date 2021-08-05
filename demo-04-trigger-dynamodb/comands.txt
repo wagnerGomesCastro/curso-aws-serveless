@@ -6,3 +6,9 @@
 -- invoke local
 sls invoke local -f hero-insert --path requests-mock/hero.insert.json
 
+
+
+{
+  "body": "{\"nome\": \"Batman\", \"poder\": \"Rico\", \"outro\": \" 100\"}",
+  "body": "{\"nome\": \"Batman\", \"poder\": \"Rico\"}"
+}
