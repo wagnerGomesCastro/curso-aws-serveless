@@ -1,0 +1,7 @@
+
+-- create
+  1- sls
+  2- sls deploy
+
+-- invoke local
+  sls invoke local -f commit-message-scheduler --logger
