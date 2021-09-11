@@ -1,0 +1,81 @@
+
+-- create
+  1- $ sls
+  2- $ sls deploy
+
+-- cd  tooling-s3-sqs
+  1- npm init -y && npm i -D serverless nodemon
+  2- npm i -D serverless-offline
+  3- sls offline Ou npx sls offline start --host 0.0.0.0
+  4-
+    curl  http://localhost:3000/dev/hello
+
+    GET | http://localhost:3000/dev/hello
+    POST | http://localhost:3000/2015-03-31/functions/hello/invocations
+
+  5- npm i -D serverless-mocha-plugin
+  6- sls create test -f hello
+    - obs: cria um arquivo de teste
+    - criar no package.json: "test": "npx sls invoke test --path test",
+      - rodar o comando: npm t ou npm test
+
+  7- LocalStack: https://localstack.cloud/ e https://github.com/localstack
+
+    - refs:
+      https://github.com/localstack/localstack/issues/303
+      https://github.com/localstack/localstack/blob/master/docker-compose.yml#L8
+
+
+      -- istall
+        -  https://lobster1234.github.io/2017/04/05/working-with-localstack-command-line
+          #Configuração localstack
+            Supondo que você esteja usando uma base OSX/Linux, verifique se você tem, , , , e instalado e no caminho.
+              make python 2.x pip npm java maven
+
+      --run:
+        docker run --rm -it -p 4566:4566 -p 4571:4571 localstack/localstack
+
+
+    - create: touch docker-compose.yml
+      Copy para  docker-compose.yml:
+        version: '2.1'
+          services:
+            localstack:
+              image: localstack/localstack
+              ports:
+                - "4572:4572"
+                - "8080:8080"
+              environment:
+                - SERVICES=s3
+                - LAMBDA_EXECUTOR=local
+                - DOCKER_HOST=unix:///var/run/docker.sock
+              volumes:
+                - /var/run/docker.sock:/var/run/docker.sock
+    - run: docker-compose up -d localstack
+    - run: docker ps e  docker logs 252551db1f36 -f
+    - run: docker container inspect 39bb237672e0
+    - run: docker-compose down -v
+    - run: docker container stop 77e0e9f20222
+    - run: docker container rm 77e0e9f20222
+    - run: docker stop $(docker ps -q)
+    - run: docker volume ls
+    - run: docker volume rm tooling-s3-sqs_nodemodules
+
+    -- ru script
+      cd: tooling-s3-sqs
+        $ bash scripts/s3/create-bucket.sh
+        $ bash scripts/s3/upload-file.sh meu-bucket scripts/s3/test.txt
+
+  8- npm i aws-sdk && npm i -D serverless-localstack
+  9- docker-compose up --build
+  10- curl localhost:3040/dev/hello
+
+
+--- demo-08-sqs-s3-streams
+=========================================================================
+
+1- cd sqs-s3-streams
+  $ docker-compose up -d localstack
+  $ docker-compose up --build app
+  $ sls invoke local -f sqslistener
+
