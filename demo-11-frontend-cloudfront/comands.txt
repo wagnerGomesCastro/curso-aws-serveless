@@ -1,0 +1,11 @@
+
+-- create
+  1- $ sls
+  2- $ sls deploy
+
+--  cat ~/.aws/credentials
+
+bucket:          website-wopv2z
+distributionUrl: https://d3sduotv3bfxiy.cloudfront.net
+bucketUrl:       http://website-wopv2z.s3-website.us-east-1.amazonaws.com
+url:             https://d3sduotv3bfxiy.cloudfront.net
