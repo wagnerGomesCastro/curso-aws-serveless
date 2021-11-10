@@ -26,8 +26,6 @@ yarn-error.log*
 /yarn.lock
 /.vscode
 aws
-dependencies
 
-demo-07-tooling
 demo-08-sqs-s3-streams
 demo-10-auth

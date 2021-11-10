@@ -1,0 +1,39 @@
+version: '2.1'
+services:
+
+  localstack:
+    image: localstack/localstack
+    # network_mode: bridge
+    #ports:
+      # - "127.0.0.1:4572:4572"
+      # - "127.0.0.1:8080:8080"
+
+    ports:
+      - "4571:4571"
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      - LAMBDA_EXECUTOR=local
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/tmp/localstack:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  app:
+    build: .
+    volumes:
+        - .:/src
+        - nodemodules:/src/node_modules
+    restart: on-failure
+    # command: npm test
+    ports:
+        - 3039:3000
+    links:
+        - localstack
+    depends_on:
+        - localstack
+    environment:
+        LOCALSTACK_HOST: localstack
+        S3_PORT: 4566
+
+volumes:
+    nodemodules: {}
