@@ -26,3 +26,5 @@ yarn-error.log*
 /.vscode
 aws
 /demo-06-layers
+
+/demo-06-layers
