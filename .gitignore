@@ -25,3 +25,7 @@ yarn-error.log*
 /yarn.lock
 /.vscode
 aws
+
+demo-06-layers
+demo-07-tooling
+demo-08-sqs-s3-streams

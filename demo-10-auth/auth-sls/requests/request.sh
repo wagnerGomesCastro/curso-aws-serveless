@@ -1,5 +1,5 @@
-HOST=http://0.0.0.0:3000
-#HOST=https://o87vwsqxz3.execute-api.us-east-1.amazonaws.com
+#HOST=http://0.0.0.0:3000
+HOST=https://bicbmyn6f4.execute-api.us-east-1.amazonaws.com
 
 TOKEN=$(curl -X POST \
     --silent \

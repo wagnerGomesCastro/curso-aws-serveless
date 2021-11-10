@@ -13,3 +13,30 @@
     curl  http://localhost:3000/dev/private
 
   5- bash requests/request_exe.sh
+  6- bash requests/request.sh
+  7- bash requests/request-not-allowed.sh
+
+
+// deploy ============================================================
+  Serverless: Stack update finished...
+  Service Information
+  service: auth-sls
+  stage: dev
+  region: us-east-1
+  stack: auth-sls-dev
+  resources: 46
+  api keys:
+    None
+  endpoints:
+    GET - https://bicbmyn6f4.execute-api.us-east-1.amazonaws.com/dev/
+    POST - https://bicbmyn6f4.execute-api.us-east-1.amazonaws.com/dev/login
+    GET - https://bicbmyn6f4.execute-api.us-east-1.amazonaws.com/dev/public
+    GET - https://bicbmyn6f4.execute-api.us-east-1.amazonaws.com/dev/private
+  functions:
+    authorizerFunc: auth-sls-dev-authorizerFunc
+    hello: auth-sls-dev-hello
+    login: auth-sls-dev-login
+    heroes-public: auth-sls-dev-heroes-public
+    heroes-private: auth-sls-dev-heroes-private
+  layers:
+    None
