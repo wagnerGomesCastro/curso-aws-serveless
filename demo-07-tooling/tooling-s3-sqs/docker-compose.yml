@@ -9,23 +9,31 @@ services:
       # - "127.0.0.1:8080:8080"
 
     ports:
-      - "4572:4572"
       - "4571:4571"
       - "4566:4566"
-      - "8080:8080"
-
     environment:
       - SERVICES=s3
       - LAMBDA_EXECUTOR=local
       - DOCKER_HOST=unix:///var/run/docker.sock
-      - HOST_TMP_FOLDER="/tmp/localstack"
-      - HOSTNAME="ip-172-31-61-28"
-      - LOCALSTACK_HOSTNAME="ip-172-31-61-28"
-      - PORT_WEB_UI="8888"
-      # - DOCKER_HOST='tcp://localhost:2375'
-      # - DOCKER_HOST='localhost:2375'
-      # - DOCKER_HOST='127.0.0.1:2375'
-      #- DOCKER_HOST='tcp://127.0.0.1:2375'
     volumes:
       - "/tmp/localstack:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+  app:
+    build: .
+    volumes:
+        - .:/src
+        - nodemodules:/src/node_modules
+    restart: on-failure
+    # command: npm test
+    ports:
+        - 3039:3000
+    links:
+        - localstack
+    depends_on:
+        - localstack
+    environment:
+        LOCALSTACK_HOST: localstack
+        S3_PORT: 4566
+
+volumes:
+    nodemodules: {}

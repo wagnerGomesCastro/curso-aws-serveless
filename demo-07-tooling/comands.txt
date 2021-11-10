@@ -25,6 +25,17 @@
       https://github.com/localstack/localstack/issues/303
       https://github.com/localstack/localstack/blob/master/docker-compose.yml#L8
 
+
+      -- istall
+        -  https://lobster1234.github.io/2017/04/05/working-with-localstack-command-line
+          #Configuração localstack
+            Supondo que você esteja usando uma base OSX/Linux, verifique se você tem, , , , e instalado e no caminho.
+              make python 2.x pip npm java maven
+
+      --run:
+        docker run --rm -it -p 4566:4566 -p 4571:4571 localstack/localstack
+
+
     - create: touch docker-compose.yml
       Copy para  docker-compose.yml:
         version: '2.1'
@@ -47,3 +58,12 @@
     - run: docker container stop 77e0e9f20222
     - run: docker container rm 77e0e9f20222
     - run: docker stop $(docker ps -q)
+
+    -- ru script
+      cd: tooling-s3-sqs
+        $ bash scripts/s3/create-bucket.sh
+        $ bash scripts/s3/upload-file.sh meu-bucket scripts/s3/test.txt
+
+  8- npm i aws-sdk && npm i -D serverless-localstack
+  9- docker-compose up --build
+  10- curl localhost:3040/dev/hello
