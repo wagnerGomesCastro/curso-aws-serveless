@@ -1,0 +1,62 @@
+
+-- create
+  1- $ sls
+  2- $ sls deploy
+
+1- sls invoke local --docker -f hello
+2- sls
+3- sls invoke -f hello --logger
+4- sls remove
+
+-- https://github.com/lambci/yumda
+-- git clone https://github.com/lambci/yumda.git
+-- mv -f yumda/examples/nodejs10.x yumda-example
+-- bash install.sh
+
+
+-----------------------------------------------------------------
+-- cd yumda-example
+  1- zip -yr ../dependencies .
+  2- cd .., cat serverless.yml
+  3- sls invoke local --docker -f hello-world
+  4- sls deploy
+  5- sls invoke -f hello-world --logger
+  6- caso dê error de
+    internal/bootstrap/switches/does_own_process_state.js:128
+    cachedCwd = rawMethods.cwd();
+
+    -- https://github.com/AnandChowdhary/run-url/issues/1
+    --exec:  cd ~ -> npx run-url https://gist.githubusercontent.com/AnandChowdhary/3c0400b29a18a2afff7a23e2a3308c22/raw/221204bc51bb7ef799363ef1e05f14c264b4a8ec/log.js
+
+  7- sls invoke -f hello-world --log
+  8- sls logs -f hello-world
+
+
+----------------------------------------------------------------------
+-- cd yumda-example/mememaker
+
+1- sls invoke local -f mememaker --docker --log
+2- sls invoke -f mememaker --log
+
+
+--------------------------------------------------------
+
+ervice Information
+service: mememaker
+stage: dev
+region: us-east-1
+stack: mememaker-dev
+resources: 13
+api keys:
+  None
+endpoints:
+  GET - https://ybbkq47oyg.execute-api.us-east-1.amazonaws.com/dev/mememaker
+functions:
+  mememaker: mememaker-dev-mememaker
+layers:
+  GmLibrary: arn:aws:lambda:us-east-1:355899591577:layer:GmLibrary:4
+Serverless: Removing old service artifacts from S3...
+Serverless: Deprecation warnings:
+
+
+-- comando: https://ybbkq47oyg.execute-api.us-east-1.amazonaws.com/dev/mememaker?image=https://www.meme-arsenal.com/memes/524a577c03951e017ba849db027dd674.jpg&topText=Hoje
