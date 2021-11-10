@@ -27,5 +27,4 @@ yarn-error.log*
 /.vscode
 aws
 
-demo-08-sqs-s3-streams
 demo-10-auth
