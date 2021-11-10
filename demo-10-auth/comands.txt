@@ -1,0 +1,15 @@
+
+-- create
+  1- $ sls
+  2- $ sls deploy
+
+-- cd  tooling-s3-sqs
+  1- npm init -y && npm i -D serverless nodemon serverless-offline
+
+  3- sls offline Ou npx sls offline start --host 0.0.0.0
+  4-
+    curl  http://localhost:3000/dev
+    curl  http://localhost:3000/dev/public
+    curl  http://localhost:3000/dev/private
+
+  5- bash requests/request_exe.sh
